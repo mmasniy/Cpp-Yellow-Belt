@@ -1,6 +1,7 @@
 #include <iostream>
 #include <tuple>
 #include <map>
+#include <utility>
 #include <vector>
 #include <string>
 
@@ -47,13 +48,22 @@ public:
         TasksInfo before_tasks = team_tasks.at(person);
         TasksInfo after_tasks;
         int all_task = GetAllTasks(before_tasks);
-//        if (task_count > all_task) {
-//            task_count = all_task;
+        if (task_count > all_task) {
+            task_count = all_task;
+        }
+        all_task = 0;
+//        for (auto& t : before_tasks) {
+//            if ((int) t.first == before_tasks[TaskStatus::NEW]) {
+//                (int) t.second--;
+//                all_task++;
+//            }
+//            else if (all_task == task_count) {
+//                break;
+//            }
 //        }
         (void) task_count;
         cout << "All_Task : " << all_task << endl;
-        tuple<TasksInfo, TasksInfo> result;
-        return result;
+        return make_tuple(before_tasks, after_tasks);
     }
 };
 

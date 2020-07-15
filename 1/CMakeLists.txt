@@ -4,9 +4,16 @@ project(1)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(1
-#        team_tasks.cpp
-#        find_max_repetition_count.cpp
+#        cmake-build-debug/1.cbp
+#        cmake-build-debug/cmake_install.cmake
+#        cmake-build-debug/CMakeCache.txt
+#        cmake-build-debug/Makefile
 #        blocks_weight.cpp
 #        class_matrix.cpp
+#        CMakeLists.txt
+        element_reference.cpp
+#        find_max_repetition_count.cpp
+#        sqrt_all.cpp
+#        team_tasks.cpp
 #        temperature_2.cpp
-        sqrt_all.cpp)
+        )

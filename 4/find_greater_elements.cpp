@@ -4,36 +4,35 @@
 #include <vector>
 
 using namespace std;
-//
-//template <typename T>
-//vector<T> FindGreaterElements(const set<T>& elements, const T& border) {
-//    vector<T> result;
-//    auto position = find(begin(elements), end(elements), [&border](const T& t) {
-//        return t > border;
-//    });
-//
-//    if (position == end(elements)) {
-//        return result;
-//    }
-//    else {
-//        position++;
-//        while (position != end(elements)) {
-//            result.push_back(*position);
-//            position++;
-//        }
-//        return result;
-//    }
-//}
 
 template <typename T>
 vector<T> FindGreaterElements(const set<T>& elements, const T& border) {
-    auto element = begin(elements);
+    vector<T> result;
+    auto position = find_if(begin(elements), end(elements), [&border](T t) {
+        return t > border;
+    });
 
-    while(element != end(elements) && *element <= border) {
-        element++;
+    if (position == end(elements)) {
+        return result;
     }
-    return {element, end(elements)};
+    else {
+        while (position != end(elements)) {
+            result.push_back(*position);
+            position++;
+        }
+        return result;
+    }
 }
+
+//template <typename T>
+//vector<T> FindGreaterElements(const set<T>& elements, const T& border) {
+//    auto element = begin(elements);
+//
+//    while(element != end(elements) && *element <= border) {
+//        element++;
+//    }
+//    return {element, end(elements)};
+//}
 
 int main() {
     for (int x : FindGreaterElements(set<int>{1, 5, 7, 8}, 5)) {

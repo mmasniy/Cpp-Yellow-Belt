@@ -16,4 +16,4 @@ add_executable(1
 #        sqrt_all.cpp
 #        team_tasks.cpp
 #        temperature_2.cpp
-        )
+        ../2/test_rational.cpp ../2/test_is_polindrom.cpp ../2/sum_reverse_sort.h ../2/sum_reverse_sum.cpp ../2/phone_number.h ../2/phone_number.cpp)

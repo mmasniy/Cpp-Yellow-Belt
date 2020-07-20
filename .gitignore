@@ -3,3 +3,5 @@
 a.out
 *DS_Store
 cmake-build-debug
+*.idea*
+*cmake-build-debug*

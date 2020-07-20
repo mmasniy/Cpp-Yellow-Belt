@@ -5,6 +5,8 @@
 
 using namespace std;
 
+//My work option
+
 template <typename T>
 vector<T> FindGreaterElements(const set<T>& elements, const T& border) {
     vector<T> result;
@@ -23,6 +25,8 @@ vector<T> FindGreaterElements(const set<T>& elements, const T& border) {
         return result;
     }
 }
+
+//Option to work with coursera
 
 //template <typename T>
 //vector<T> FindGreaterElements(const set<T>& elements, const T& border) {

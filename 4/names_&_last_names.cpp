@@ -6,12 +6,8 @@ using namespace std;
 
 string GetNameOrLastname(const map<int, string>& data, int year) {
     string buffer;
-
-    for(const auto& [key, value] : data) {
-        if (key <= year){
-            buffer = value;
-        }
-    }
+    auto iter = data.lower_bound(year);
+    if (data.empty() && )
     return buffer;
 }
 
@@ -20,8 +16,7 @@ class Person {
     map<int, string> last_n;
 public:
     void ChangeFirstName(int year, const string& first_name) {
-        if (names.count(year) == 1)
-            names[year] = first_name;
+        names[year] = first_name;
     }
     void ChangeLastName(int year, const string& last_name) {
         last_n[year] = last_name;
@@ -44,7 +39,6 @@ public:
         }
     }
 };
-
 
 int main() {
     Person person;

@@ -6,8 +6,10 @@ using namespace std;
 
 string GetNameOrLastname(const map<int, string>& data, int year) {
     string buffer;
-    auto iter = data.lower_bound(year);
-    if (data.empty() && )
+    auto iter = data.upper_bound(year);
+    if (iter != data.begin()) {
+        buffer = (--iter)->second;
+    }
     return buffer;
 }
 

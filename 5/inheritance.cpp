@@ -11,7 +11,6 @@ public:
     const string Name;
 };
 
-
 class Dog : public Animal{
 public:
     Dog (const string& name) : Animal(name){

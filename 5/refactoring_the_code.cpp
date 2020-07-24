@@ -12,6 +12,8 @@ public:
     Human(const string& name): name_(name) {
     }
 
+    ~Human() = default;
+
     virtual const string& type() const = 0;
 
     const string& name() const {
@@ -33,13 +35,13 @@ public:
         cout << "Student: " << name_ << " learns" << endl;
     }
 
-    void Walk(const string& destination) const override {
-        Human::Walk(destination);
+    void SingSong() const {
         cout << "Student: " << name_ << " sings a song: " << FavouriteSong << endl;
     }
 
-    void SingSong() const {
-        cout << "Student: " << name_ << " sings a song: " << FavouriteSong << endl;
+    void Walk(const string& destination) const override {
+        Human::Walk(destination);
+        SingSong();
     }
 
     const string& type() const override {

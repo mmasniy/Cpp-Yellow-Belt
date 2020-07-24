@@ -54,5 +54,5 @@ public:
 
 private:
     const LogicalOperation logical_operation;
-
+    Node left, right;
 };

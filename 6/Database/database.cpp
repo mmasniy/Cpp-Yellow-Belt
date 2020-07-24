@@ -4,18 +4,23 @@ void Database::Add(const Date& date, const string& event) {
     events[date].insert(event);
 }
 
-void Database::FindIf(const Date& date) const {
-    if (events.count(date) != 0) {
-        set<string> finded = events.at(date);
+template <class Func>
+int Database::FindIf(Func predicate) {
 
-        for (const string& f : finded) {
-            cout << f << endl;
-        }
-    }
 }
 
 template <class Func>
-int RemoveIf(Func predicate) {
+int Database::RemoveIf(Func predicate) {
+    int count = 0;
+    for (auto& [key, value] : events) {
+        for (auto& event : value) {
+            if (predicate(key, event)) {
+                value.erase(event);
+                count++;
+            }
+        }
+    }
+    return count;
 }
 
 void Database::Print(ostream& out) const {

@@ -6,11 +6,14 @@
 
 class Database {
     map<Date, set<string>> events;
+    map<Date, vector<string>> hrono_events;
 
 public:
     void Add(const Date& date, const string& event);
-    int FindIf(function<bool (Date, string)>) const;
     void Last()const;
     void Print(ostream& out) const;
-    int RemoveIf(function<bool (Date, string)>);
+    template <class Func> int RemoveIf(Func predicate);
+
+    template<class Func>
+    int FindIf(Func predicate);
 };

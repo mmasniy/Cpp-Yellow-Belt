@@ -10,23 +10,27 @@ using namespace std;
 
 class Figure {
 public:
-    virtual string Name() = 0;
+    Figure(const string& name_) : name(name_){
+    }
+    virtual string Name() const = 0;
 
     virtual double Perimeter() = 0;
 
     virtual double Area() = 0;
+
+    virtual ~Figure() = default;
+
+protected:
+    const string name;
 };
 
 class Triangle : public Figure {
 public:
-    Triangle (const string& name_, double a_, double b_, double c_) {
-        name = name_;
-        a = a_;
-        b = b_;
-        c = c_;
+    Triangle (double a_, double b_, double c_)
+    : Figure("TRIANGLE"), a(a_), b(b_), c(c_){
     }
 
-    string Name() override {
+    string Name() const override {
         return name;
     }
 
@@ -40,19 +44,16 @@ public:
     }
 
 private:
-    string name;
-    double a, b, c;
+    const double a, b, c;
 };
 
 class Rect : public Figure {
 public:
-    Rect (const string& name_, double width_, double height_) {
-        name = name_;
-        width = width_;
-        height = height_;
+    Rect (double width_, double height_)
+    : Figure("RECT"), width(width_), height(height_) {
     }
 
-    string Name() override {
+    string Name() const override {
         return name;
     }
 
@@ -65,18 +66,15 @@ public:
     }
 
 private:
-    string name;
-    double width, height;
+    const double width, height;
 };
 
 class Circle : public Figure {
 public:
-    Circle (const string& name_, double radius_) {
-        name = name_;
-        radius = radius_;
+    Circle (double radius_) : Figure("CIRCLE"), radius(radius_){
     }
 
-    string Name() override {
+    string Name() const override {
         return name;
     }
 
@@ -89,38 +87,58 @@ public:
     }
 
 private:
-    string name;
-    double radius;
+    const double radius;
 };
 
+shared_ptr<Figure> CreateFigure(istringstream& parameter) {
+    string figure_type;
+    parameter >> figure_type;
+    if (figure_type == "RECT") {
+        double width_, height_;
+        parameter >> width_ >> height_;
+        return make_shared<Rect>(width_, height_);
+    }
+    else if (figure_type == "TRIANGLE") {
+        double a_, b_, c_;
+        parameter >> a_ >> b_ >> c_;
+        return make_shared<Triangle>(a_, b_, c_);
+    }
+    else if (figure_type == "CIRCLE") {
+        double radius_;
+        parameter >> radius_;
+        return make_shared<Circle>(radius_);
+    }
+    return 0;
+}
+
 int main() {
-    Triangle a = {"Tric", 3, 4, 5};
-    cout << a.Name() << " " << a.Perimeter() << " " << a.Area() << endl;
-    Rect r = {"Rect", 10, 20};
-    cout << r.Name() << " " << r.Perimeter() << " " << r.Area() << endl;
-    Circle c = {"Circle",5 };
-    cout << c.Name() << " " << c.Perimeter() << " " << c.Area() << endl;
-//    vector<shared_ptr<Figure>> figures;
-//    for (string line; getline(cin, line); ) {
-//        istringstream is(line);
-//
-//        string command;
-//        is >> command;
-//        if (command == "ADD") {
-//            // Пропускаем "лишние" ведущие пробелы.
-//            // Подробнее об std::ws можно узнать здесь:
-//            // https://en.cppreference.com/w/cpp/io/manip/ws
-//            is >> ws;
-//            figures.push_back(CreateFigure(is));
-//        } else if (command == "PRINT") {
-//            for (const auto& current_figure : figures) {
-//                cout << fixed << setprecision(3)
-//                     << current_figure->Name() << " "
-//                     << current_figure->Perimeter() << " "
-//                     << current_figure->Area() << endl;
-//            }
-//        }
-//    }
+//    Triangle a = {"Tric", 3, 4, 5};
+//    cout << a.Name() << " " << a.Perimeter() << " " << a.Area() << endl;
+//    Rect r = {"Rect", 10, 20};
+//    cout << r.Name() << " " << r.Perimeter() << " " << r.Area() << endl;
+//    Circle c = {"Circle",5 };
+//    cout << c.Name() << " " << c.Perimeter() << " " << c.Area() << endl;
+    vector<shared_ptr<Figure>> figures;
+    for (string line; getline(cin, line); ) {
+        istringstream is(line);
+
+        string command;
+        is >> command;
+        if (command == "ADD") {
+            // Пропускаем "лишние" ведущие пробелы.
+            // Подробнее об std::ws можно узнать здесь:
+            // https://en.cppreference.com/w/cpp/io/manip/ws
+            is >> ws;
+            figures.push_back(CreateFigure(is));
+        } else if (command == "PRINT") {
+            for (const auto& current_figure : figures) {
+                cout << fixed << setprecision(3)
+                     << current_figure->Name() << " "
+                     << current_figure->Perimeter() << " "
+                     << current_figure->Area() << endl;
+            }
+        }
+    }
     return 0;
 }
 

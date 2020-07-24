@@ -35,28 +35,32 @@ int Date::GetDay() const {
     return day;
 }
 
+constexpr tuple<const int &, const int &, const int &> Date::rank() const {
+    return tie(year, month, day);
+}
+
 bool operator==(const Date& lhs, const Date& rhs) {
-    if (lhs.GetYear() == rhs.GetYear()) {
-        if (lhs.GetMonth() == rhs.GetMonth()) {
-            return lhs.GetDay() == rhs.GetDay();
-        }
-        return false;
-    }
-    return false;
+    return lhs.rank() == rhs.rank();
+}
+
+bool operator!=(const Date& lhs, const Date& rhs) {
+    return !(lhs == rhs);
 }
 
 bool operator<(const Date& lhs, const Date& rhs) {
-    if (lhs.GetYear() == rhs.GetYear()) {
-        if (lhs.GetMonth()== rhs.GetMonth()){
-            return lhs.GetDay() < rhs.GetDay();
-        }
-        else {
-            return lhs.GetMonth() < rhs.GetMonth();
-        }
-    }
-    else {
-        return lhs.GetYear() < rhs.GetYear();
-    }
+    return lhs.rank() < rhs.rank();
+}
+
+bool operator>(const Date& lhs, const Date& rhs) {
+    return lhs.rank() > rhs.rank();
+}
+
+bool operator<=(const Date& lhs, const Date& rhs) {
+    return !(lhs > rhs);
+}
+
+bool operator>=(const Date& lhs, const Date& rhs) {
+    return !(lhs < rhs);
 }
 
 [[maybe_unused]] Date ParseDate(istringstream& input) {

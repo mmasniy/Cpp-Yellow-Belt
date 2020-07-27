@@ -79,9 +79,5 @@ bool operator>=(const Date& lhs, const Date& rhs) {
             string error = "Wrong date format: day";
             throw invalid_argument(error);
         }
-        if ((input.peek() != EOF)) {
-            string error = "Wrong date format: year.month.day";
-            throw invalid_argument(error);
-        }
         return Date(day, month, year);
 }

@@ -1,8 +1,14 @@
 #pragma once
 
-#include "date.h"
 #include <set>
 #include <map>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+#include "date.h"
+
+string DataToString(const Date& date);
 
 class Database {
     map<Date, set<string>> events;
@@ -10,10 +16,8 @@ class Database {
 
 public:
     void Add(const Date& date, const string& event);
-    void Last()const;
     void Print(ostream& out) const;
-    template <class Func> int RemoveIf(Func predicate);
-
-    template<class Func>
-    int FindIf(Func predicate);
+    int RemoveIf(const function<bool(const Date& date, const string& event)>& predicate);
+    vector<string> FindIf(const function<bool(const Date& date, const string& event)>& predicate) const;
+    [[nodiscard]] string Last(const Date& date) const;
 };

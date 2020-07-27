@@ -15,24 +15,41 @@ enum LogicalOperation {
     And
 };
 
+template<class T>
+bool ComporisionTwoNodes(T node1, T node2, Comparison comp) {
+    switch (comp) {
+        case Less:
+            return node1 < node2;
+        case LessOrEqual:
+            return node1 <= node2;
+        case Greater:
+            return node1 > node2;
+        case GreaterOrEqual:
+            return node1 >= node2;
+        case Equal:
+            return node1 == node2;
+        case NotEqual:
+            return node1 != node2;
+    }
+}
+
 class Node {
 public:
-    virtual bool Evaluate (Date date, string event) = 0;
+    virtual ~Node() = default;
+    [[nodiscard]] virtual bool Evaluate (const Date& _date, const string& _event) const = 0;
 };
 
 class EmptyNode : public Node{
 public:
-    bool Evaluate (Date date, string event) override {
+    [[nodiscard]] bool Evaluate (const Date& _date, const string& _event) const override {
         return true;
     }
 };
 
 class DateComparisonNode : public Node {
 public:
-    DateComparisonNode(const Comparison& cmp_, const Date& date_)
-    : cmp(cmp_), date(date_){
-    }
-
+    DateComparisonNode(const Comparison& cmp_, const Date& date_);
+    [[nodiscard]] bool Evaluate (const Date& _date, const string& _event) const override;
 private:
     const Comparison cmp;
     const Date date;
@@ -40,10 +57,8 @@ private:
 
 class EventComparisonNode : public Node {
 public:
-    EventComparisonNode(const Comparison& cmp_, const string& value_)
-    : cmp(cmp_), value(value_){
-    }
-
+    EventComparisonNode(const Comparison& cmp_, const string& value_);
+    [[nodiscard]] bool Evaluate (const Date& _date, const string& _event) const override;
 private:
     const Comparison cmp;
     const string value;
@@ -51,8 +66,12 @@ private:
 
 class LogicalOperationNode : public Node {
 public:
+    LogicalOperationNode(LogicalOperation _log_operation,
+            shared_ptr<Node> _left, shared_ptr<Node> _rigth);
+
+    [[nodiscard]] bool Evaluate (const Date& date, const string& event) const override;
 
 private:
     const LogicalOperation logical_operation;
-    Node left, right;
+    shared_ptr <Node> left, right;
 };

@@ -17,7 +17,7 @@ class Database {
 public:
     void Add(const Date& date, const string& event);
     void Print(ostream& out) const;
-    int RemoveIf(const function<bool(const Date& date, const string& event)>& predicate);
-    vector<string> FindIf(const function<bool(const Date& date, const string& event)>& predicate) const;
-    [[nodiscard]] string Last(const Date& date) const;
+    int RemoveIf(function<bool(const Date& date, const string& event)> predicate);
+    vector<string> FindIf(function<bool(const Date& date, const string& event)> predicate) const;
+    string Last(const Date& date) const;
 };

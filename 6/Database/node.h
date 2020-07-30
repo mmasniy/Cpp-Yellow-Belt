@@ -19,13 +19,13 @@ template<class T>
 bool ComporisionTwoNodes(T node1, T node2, Comparison comp) {
     switch (comp) {
         case Less:
-            return node1 < node2;
-        case LessOrEqual:
-            return node1 <= node2;
-        case Greater:
             return node1 > node2;
-        case GreaterOrEqual:
+        case LessOrEqual:
             return node1 >= node2;
+        case Greater:
+            return node1 < node2;
+        case GreaterOrEqual:
+            return node1 <= node2;
         case Equal:
             return node1 == node2;
         case NotEqual:

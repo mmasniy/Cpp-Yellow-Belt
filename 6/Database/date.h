@@ -5,6 +5,7 @@
 #include <exception>
 #include <iomanip>
 #include <sstream>
+#include <tuple>
 
 using namespace std;
 

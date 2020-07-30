@@ -1,6 +1,6 @@
 #include "date.h"
 
-Date::Date(int new_day, int new_month, int new_year) {
+Date::Date(int new_year, int new_month, int new_day) {
     year = new_year;
     if (new_month < 1 || new_month > 12) {
         throw invalid_argument("Month value is invalid: " + to_string(new_month));
@@ -79,5 +79,5 @@ bool operator>=(const Date& lhs, const Date& rhs) {
             string error = "Wrong date format: day";
             throw invalid_argument(error);
         }
-        return Date(day, month, year);
+        return Date(year, month, day);
 }

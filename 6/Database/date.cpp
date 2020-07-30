@@ -17,7 +17,7 @@ Date::Date(int new_year, int new_month, int new_day) {
     }
 }
 
-[[maybe_unused]] void Date::PrintDate() const{
+void Date::PrintDate() const{
     cout << setw(4) << setfill('0') << GetYear() << "-"
          << setw(2) << setfill('0') << GetMonth() << "-"
          << setw(2) << setfill('0') << GetDay();
@@ -63,7 +63,14 @@ bool operator>=(const Date& lhs, const Date& rhs) {
     return !(lhs < rhs);
 }
 
-[[maybe_unused]] Date ParseDate(istringstream& input) {
+ostream& operator<<(ostream& out, const Date& output) {
+    out << setw(4) << setfill('0') << output.GetYear() << "-"
+        << setw(2) << setfill('0') << output.GetMonth() << "-"
+        << setw(2) << setfill('0') << output.GetDay();
+    return out;
+}
+
+Date ParseDate(istream& input) {
     int day, month, year;
         if (!(input >> year)) {
             string error = "Wrong date format: year";
@@ -80,4 +87,14 @@ bool operator>=(const Date& lhs, const Date& rhs) {
             throw invalid_argument(error);
         }
         return Date(year, month, day);
+}
+
+string DataToString(const Date& date) {
+    stringstream out;
+    string result;
+    out << setw(4) << setfill('0') << date.GetYear() << "-"
+        << setw(2) << setfill('0') << date.GetMonth() << "-"
+        << setw(2) << setfill('0') << date.GetDay();
+    getline(out, result);
+    return result;
 }

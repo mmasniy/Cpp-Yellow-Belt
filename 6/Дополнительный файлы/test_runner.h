@@ -2,6 +2,7 @@
 
 #include <set>
 #include <map>
+#include <sstream>
 
 
 class TestRunner {
@@ -19,8 +20,8 @@ private:
     int fail_count = 0;
 };
 
-template <class T>
-ostream& operator << (ostream& os, const vector<T>& v) {
+template <class V, class T>
+ostream& operator << (ostream& os, const V<T>& v) {
     os << "[";
     bool first = true;
     for (const auto& x : v) {
@@ -32,6 +33,7 @@ ostream& operator << (ostream& os, const vector<T>& v) {
     }
     return os << "]";
 }
+
 template <class T>
 ostream& operator << (ostream& os, const set<T>& s) {
     os << "{";

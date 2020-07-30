@@ -1,8 +1,22 @@
-//
-// Created by mmasniy on 18.07.2020.
-//
+#pragma once
+#include <iostream>
+#include <vector>
+#include <string>
 
-#ifndef INC_3_QUERY_H
-#define INC_3_QUERY_H
+using namespace std;
 
-#endif //INC_3_QUERY_H
+enum class QueryType {
+    NewBus,
+    BusesForStop,
+    StopsForBus,
+    AllBuses
+};
+
+struct Query {
+    QueryType type;
+    string bus;
+    string stop;
+    vector<string> stops;
+};
+
+istream& operator >> (istream& is, Query& q);

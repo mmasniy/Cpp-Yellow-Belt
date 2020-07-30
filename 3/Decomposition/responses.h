@@ -1,8 +1,24 @@
-//
-// Created by mmasniy on 18.07.2020.
-//
+#pragma once
+#include <iostream>
+#include <map>
+#include "query.h"
 
-#ifndef INC_3_RESPONSES_H
-#define INC_3_RESPONSES_H
+using namespace std;
 
-#endif //INC_3_RESPONSES_H
+struct BusesForStopResponse {
+    vector<string> buses;
+};
+
+struct StopsForBusResponse {
+    string bus;
+    vector<string> stops_for_bus;
+    map<string, vector<string>> stops_for_buses;
+};
+
+struct AllBusesResponse {
+    map<string, vector<string>> buses_to_stops;
+};
+
+ostream& operator << (ostream& os, const BusesForStopResponse& r);
+ostream& operator << (ostream& os, const StopsForBusResponse& r);
+ostream& operator << (ostream& os, const AllBusesResponse& r);

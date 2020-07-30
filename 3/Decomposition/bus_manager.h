@@ -1,8 +1,16 @@
-//
-// Created by mmasniy on 18.07.2020.
-//
+#pragma once
+#include <string>
+#include "responses.h"
 
-#ifndef INC_3_BUS_MANAGER_H
-#define INC_3_BUS_MANAGER_H
+using namespace std;
 
-#endif //INC_3_BUS_MANAGER_H
+class BusManager {
+    map<string, vector<string>> buses_to_stops, stops_to_buses; // остановки для автобусов, автобусы для остановки!
+public:
+    void PrintMaps() const;
+    void AddBus(const string& bus, const vector<string>& stops);
+    BusesForStopResponse GetBusesForStop(const string& stop) const;
+    StopsForBusResponse GetStopsForBus(const string& bus) const;
+    AllBusesResponse GetAllBuses() const;
+};
+

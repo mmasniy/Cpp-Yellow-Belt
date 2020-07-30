@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "date.h"
 
 enum Comparison {
@@ -36,20 +37,23 @@ bool ComporisionTwoNodes(T node1, T node2, Comparison comp) {
 class Node {
 public:
     virtual ~Node() = default;
-    [[nodiscard]] virtual bool Evaluate (const Date& _date, const string& _event) const = 0;
+    virtual bool Evaluate (const Date& _date, const string& _event) const = 0;
 };
 
 class EmptyNode : public Node{
 public:
-    [[nodiscard]] bool Evaluate (const Date& _date, const string& _event) const override {
+    bool Evaluate (const Date& _date, const string& _event) const override {
         return true;
     }
 };
 
 class DateComparisonNode : public Node {
 public:
-    DateComparisonNode(const Comparison& cmp_, const Date& date_);
-    [[nodiscard]] bool Evaluate (const Date& _date, const string& _event) const override;
+    DateComparisonNode(const Comparison& cmp_, const Date& date_)
+    : cmp(cmp_), date(date_){
+    }
+
+    bool Evaluate (const Date& _date, const string& _event) const override;
 private:
     const Comparison cmp;
     const Date date;
@@ -57,8 +61,11 @@ private:
 
 class EventComparisonNode : public Node {
 public:
-    EventComparisonNode(const Comparison& cmp_, const string& value_);
-    [[nodiscard]] bool Evaluate (const Date& _date, const string& _event) const override;
+    EventComparisonNode(const Comparison& cmp_, const string& value_)
+    : cmp(cmp_), value(value_){
+    }
+    bool Evaluate (const Date& _date, const string& _event) const override;
+
 private:
     const Comparison cmp;
     const string value;
@@ -67,9 +74,11 @@ private:
 class LogicalOperationNode : public Node {
 public:
     LogicalOperationNode(LogicalOperation _log_operation,
-            shared_ptr<Node> _left, shared_ptr<Node> _rigth);
+                         shared_ptr <Node> _left, shared_ptr <Node> _rigth)
+            : logical_operation(_log_operation), left(_left), right(_rigth){
+    }
 
-    [[nodiscard]] bool Evaluate (const Date& date, const string& event) const override;
+    bool Evaluate (const Date& date, const string& event) const override;
 
 private:
     const LogicalOperation logical_operation;
